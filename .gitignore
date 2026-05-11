@@ -1,0 +1,10 @@
+/*
+!.gitignore
+
+# https://stackoverflow.com/questions/987142/make-gitignore-ignore-everything-except-a-few-files
+!straight/
+straight/*
+!straight/versions/
+
+!init.el
+!early-init.el

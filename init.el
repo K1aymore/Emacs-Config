@@ -17,11 +17,53 @@
 
 (defvar os-windows (string-equal system-type "windows-nt") "Running on Windows.")
 
+
+(setq inhibit-startup-screen t)
+(toggle-scroll-bar -1)
+(tool-bar-mode -1)
+(global-display-line-numbers-mode 1)
+(display-time-mode 1)
+(setq display-time-day-and-date t)
+(pixel-scroll-precision-mode 1)
+(setq mouse-wheel-progressive-speed nil)
+(setq mouse-wheel-scroll-amount '(12 ((shift) . hscroll) ((meta)) ((control meta) . global-text-scale)
+									 ((control) . text-scale))) ;; only affects Windows
+(setq-default tab-width 4)
+(global-visual-line-mode 1)
+(global-visual-wrap-prefix-mode 1) ;; keep indentation
+
+(add-to-list 'default-frame-alist '(font . "Fira Code-10"))
+(set-fontset-font "fontset-default" '(#xf1900 . #xf19ff)
+				  (font-spec :size (if os-windows 16 26) :name "nasin-nanpa"))
+;; ,.,.,.,.,.,.,.,.,.,.,.,.
+;; 󱤪󱥁󱤧󱤆󱤉󱤎󱦐󱤋󱤰󱤆󱤟󱥠󱦑
+
+
+
+(defun conf () (interactive) (find-file "/synced/Nix/cfg"))
+(defun cfg () (interactive) (find-file "~/.emacs.d/init.el"))
+(defun configs() (interactive)
+	   (find-file "/synced/Nix/cfg/modules/packages/mpv.nix")
+	   (split-window-horizontally)
+	   (find-file "~/.emacs.d/init.el"))
+
+
+(semantic-mode 1)
+(global-semantic-idle-completions-mode 1)
+
+
+
+
+
+;; Packages
+
 ;; https://drewsh.com/use-package-with-straight
 (setq straight-use-package-by-default t)
 
-(straight-use-package 'magit)
+(straight-use-package 'catppuccin-theme)
+(load-theme 'catppuccin :no-confirm)
 
+(straight-use-package 'magit)
 
 (setq treesit-font-lock-level 4)
 (straight-use-package 'nix-ts-mode)
@@ -68,32 +110,3 @@
 			  :ext "\\COMMIT_EDITMSG\\'"))
 (treesit-auto-add-to-auto-mode-alist 'all)
 
-(straight-use-package 'catppuccin-theme)
-(load-theme 'catppuccin :no-confirm)
-(add-to-list 'default-frame-alist '(font . "Fira Code-10"))
-(set-fontset-font "fontset-default" '(#xf1900 . #xf19ff) (font-spec :size 26 :name "nasin-nanpa"))
-(when os-windows (set-fontset-font "fontset-default" '(#xf1900 . #xf19ff)
-								   (font-spec :size 16 :name "nasin-nanpa")))
-;; ,.,.,.,.,.,.,.,.,.,.,.,.
-;; 󱤑󱤧󱥷󱥬󱤑󱤧󱥷󱥬󱤑󱤧󱥷󱥬
-
-(toggle-scroll-bar -1)
-(tool-bar-mode -1)
-(global-display-line-numbers-mode 1)
-(pixel-scroll-precision-mode 1)
-(setq mouse-wheel-progressive-speed nil);
-(setq-default tab-width 4)
-(global-visual-line-mode 1)
-(global-visual-wrap-prefix-mode 1) ;; keep indentation
-
-(semantic-mode 1)
-(global-semantic-idle-completions-mode 1)
-
-
-
-(defun conf () (interactive) (find-file "/synced/Nix/cfg"))
-(defun cfg () (interactive) (find-file "~/.emacs.d/init.el"))
-(defun configs() (interactive)
-	   (find-file "/synced/Nix/cfg/modules/packages/mpv.nix")
-	   (split-window-horizontally)
-	   (find-file "~/.emacs.d/init.el"))
